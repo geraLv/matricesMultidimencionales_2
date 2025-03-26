@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let users = [];
+      let menu;
+      do {
+        menu = prompt(`Menu: seleccione la opción que desea realizar.
+        1_Crear un nuevo usuario
+          2_Mostrar todos los datos
+          3_Filtrar por DNI
+          4_Salir del programa
+          `);
+
+        if (menu === "1") {
+          function registrar() {
+            let nombre = prompt("ingrese el nombre del usuario");
+            let apellido = prompt("ingrese el apellido del usuario");
+            let dni = prompt("ingrese el DNI del usuario");
+            let numsAsociados = [];
+            let telefono = prompt(
+              `ingrese el/los numeros de telefono separados por una coma:
+                Ejemplo 3704, 3704`
+            );
+            numsAsociados.push(telefono);
+
+            let hijos = [];
+
+            let nombreHijo = prompt(
+              `ingrese el/los nombres de sus hijos separados por una coma:
+              Ejemplo: pedro, maria`
+            );
+            hijos.push(nombreHijo);
+
+            users.push({
+              nombre: nombre,
+              apellido: apellido,
+              dni: dni,
+              numsAsociados: numsAsociados,
+              hijos: hijos,
+            });
+            const user = [nombre, apellido, dni, numsAsociados, hijos];
+            alert(user);
+            alert("Usuario agregado correctamente");
+          }
+          registrar();
+        } else if (menu === "2") {
+          if (users.length > 0) {
+            const userList = users
+              .map(
+                (user) =>
+                  `Nombre: ${user.nombre}, Apellido: ${user.apellido}, DNI: ${
+                    user.dni
+                  },   
+                        Números de teléfono: ${user.numsAsociados.join(
+                          ", "
+                        )}, Hijos: ${user.hijos.join(", ")}`
+              )
+              .join("\n");
+            alert("Usuarios registrados:\n" + userList);
+          } else {
+            alert("No hay usuarios registrados.");
+          }
+        } else if (menu === "3") {
+          const dniBuscar = prompt("Ingrese el DNI que desea filtrar:");
+          const userFiltered = users.filter((user) => user.dni === dniBuscar);
+
+          if (userFiltered.length > 0) {
+            const result = userFiltered
+              .map(
+                (user) =>
+                  `Nombre: ${user.nombre}, Apellido: ${user.apellido},   
+                        Números de teléfono: ${user.numsAsociados.join(
+                          ", "
+                        )}, Hijos: ${user.hijos.join(", ")}`
+              )
+              .join("\n");
+            alert("Usuario(s) encontrado(s):\n" + result);
+          } else {
+            alert("No se encontraron usuarios con ese DNI.");
+          }
+        }
+      } while (menu !== "4");
+    </script>
+  </body>
+</html>
